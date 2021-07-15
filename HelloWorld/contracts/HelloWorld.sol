@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity ^0.5.2;
 
 contract HelloWorld {
   function helloWorld() public pure returns (string memory) {
