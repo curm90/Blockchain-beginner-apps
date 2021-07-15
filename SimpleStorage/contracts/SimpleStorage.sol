@@ -1,8 +1,12 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity ^0.5.1;
 
 contract SimpleStorage {
-  string data = 'Hello World!';
+  string data;
+
+  constructor(_data) public {
+    data = _data;
+  }
 
   function set(string memory _data) public {
     data = _data;

@@ -1,11 +1,11 @@
-const HelloWorld = artifacts.require("HelloWorld");
+const HelloWorld = artifacts.require('HelloWorld');
 
-contract("HelloWorld", async (accounts) => {
-  it("Should return the string Hello World!", async () => {
+contract('HelloWorld', async () => {
+  it('Should return the string Hello World!', async () => {
     const instance = await HelloWorld.deployed();
     const result = await instance.helloWorld.call();
-    const resultStr = "Hello World!";
+    const resultStr = 'Hello World!';
 
-    assert(result == resultStr);
+    assert.equal(result, resultStr);
   });
 });
