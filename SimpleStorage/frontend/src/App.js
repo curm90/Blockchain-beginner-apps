@@ -26,7 +26,7 @@ class App extends React.Component {
   };
 
   onChange = (e) => {
-    this.setState(() => ({ inputVal: e.target.value }));
+    this.setState(() => ({ inputVal: e.target.value, errorMessage: '' }));
   };
 
   onSubmit = async (e) => {
@@ -56,7 +56,7 @@ class App extends React.Component {
         <h4>Welcome {this.state.account}</h4>
         <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
           <Form.Field>
-            <label>New Message</label>
+            <label>New data (Number)</label>
             <Input
               type="number"
               placeholder="Enter new message..."
@@ -75,7 +75,9 @@ class App extends React.Component {
         <Button style={{ marginTop: '15px' }} onClick={this.getMessage}>
           Get message
         </Button>
-        {this.state.newMessage && <Message>{this.state.newMessage}</Message>}
+        {this.state.newMessage && (
+          <Message>data: {this.state.newMessage}</Message>
+        )}
       </Container>
     );
   }
