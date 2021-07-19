@@ -1,7 +1,8 @@
 import React from 'react';
 import initWeb3 from './web3';
-import { Container, Form, Input, Message, Button } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { ADDRESS, ABI } from './advancedStorage';
+import NumberForm from './components/NumberForm';
 
 class App extends React.Component {
   state = {
@@ -56,23 +57,12 @@ class App extends React.Component {
         <h4>Welcome {this.state.accounts[0]}</h4>
 
         <div>
-          <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
-            <Form.Field>
-              <label>Add item (number)</label>
-              <Input
-                value={this.state.inputVal}
-                placeholder="Add new item..."
-                onChange={this.onChange}
-                type="number"
-              ></Input>
-            </Form.Field>
-            <Button primary>Add</Button>
-            <Message
-              error
-              header="Oops!"
-              content={this.state.errorMessage}
-            ></Message>
-          </Form>
+          <NumberForm
+            onSubmit={this.onSubmit}
+            onChange={this.onChange}
+            errorMessage={this.state.errorMessage}
+            inputVal={this.state.inputVal}
+          />
         </div>
         <div style={{ marginTop: '50px', borderTop: '1px solid #eee' }}></div>
         <ul>
