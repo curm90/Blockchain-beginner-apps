@@ -3,6 +3,7 @@ import initWeb3 from './web3';
 import { Container } from 'semantic-ui-react';
 import { ADDRESS, ABI } from './advancedStorage';
 import NumberForm from './components/NumberForm';
+import NumbersList from './components/Number/NumbersList';
 
 class App extends React.Component {
   state = {
@@ -24,7 +25,6 @@ class App extends React.Component {
     const accounts = await web3.eth.getAccounts();
     const numbers = await contract.methods.getAll().call();
     this.setState(() => ({ contract, accounts, numbers, web3 }));
-    console.log(this.state);
   };
 
   onChange = (e) => {
@@ -55,7 +55,6 @@ class App extends React.Component {
       <Container className="App" style={{ marginTop: '50px' }}>
         <h1>Advanced storage</h1>
         <h4>Welcome {this.state.accounts[0]}</h4>
-
         <div>
           <NumberForm
             onSubmit={this.onSubmit}
@@ -65,13 +64,7 @@ class App extends React.Component {
           />
         </div>
         <div style={{ marginTop: '50px', borderTop: '1px solid #eee' }}></div>
-        <ul>
-          {this.state.numbers ? (
-            this.state.numbers.map((number, i) => <li key={i}>{number}</li>)
-          ) : (
-            <h4>Add an item to begin</h4>
-          )}
-        </ul>
+        <NumbersList numbers={this.state.numbers} />
       </Container>
     );
   }
