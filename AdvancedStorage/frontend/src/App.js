@@ -1,5 +1,5 @@
 import React from 'react';
-import initWeb3 from './web3';
+import initWeb3 from './utils/web3';
 import { Container } from 'semantic-ui-react';
 import { ADDRESS, ABI } from './advancedStorage';
 import NumberForm from './components/NumberForm';
