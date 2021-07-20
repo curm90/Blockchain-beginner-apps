@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import { ABI, ADDRESS } from './utils/crud';
+import { Container } from 'semantic-ui-react';
 import getWeb3 from './utils/getWeb3';
+import { ABI, ADDRESS } from './utils/crud';
+import AddUserForm from './components/AddUserForm';
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+  state = {
+    errorMessage: '',
+    inputVal: '',
+    web3: null,
+    accounts: null,
+    contract: null,
+  };
 
   componentDidMount() {
     this.loadBlockchainData();
@@ -12,8 +20,25 @@ class App extends Component {
   loadBlockchainData = async () => {
     let web3 = await getWeb3();
     const instance = new web3.eth.Contract(ABI, ADDRESS);
-    const accounts = web3.eth.getAccounts();
+    const accounts = await web3.eth.getAccounts();
     this.setState(() => ({ web3, contract: instance, accounts }));
+  };
+
+  addUser = async () => {
+    console.log('Form submitted');
+  };
+
+  onChange = (e) => {
+    e.persist();
+    console.log(e.target.value);
+    console.log(this.state.inputVal);
+    this.setState(() => ({ inputVal: e.target.value, errorMessage: '' }));
+  };
+
+  onSubmit = async (e) => {
+    e.preventDefault();
+
+    this.addUser();
   };
 
   render() {
@@ -21,19 +46,15 @@ class App extends Component {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
     return (
-      <div className="App">
-        <h1>Good to Go!</h1>
-        <p>Your Truffle Box is installed and ready.</p>
-        <h2>Smart Contract Example</h2>
-        <p>
-          If your contracts compiled and migrated successfully, below will show
-          a stored value of 5 (by default).
-        </p>
-        <p>
-          Try changing the value stored on <strong>line 42</strong> of App.js.
-        </p>
-        <div>The stored value is: {this.state.storageValue}</div>
-      </div>
+      <Container style={{ marginTop: '50px' }} className='App'>
+        <h3>Welcome {this.state.accounts[0]}</h3>
+        <AddUserForm
+          onChange={this.onChange}
+          inputVal={this.state.inputVal}
+          onSubmit={this.onSubmit}
+          errorMessage={this.state.errorMessage}
+        />
+      </Container>
     );
   }
 }
